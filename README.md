@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/uiqkos-llamacloud-rag-mcp-badge.png)](https://mseep.ai/app/uiqkos-llamacloud-rag-mcp)
+
 # 🦙 LlamaCloud RAG MCP Server
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
