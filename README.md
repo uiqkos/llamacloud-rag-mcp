@@ -24,7 +24,7 @@ Professional Model Context Protocol (MCP) server for **Retrieval-Augmented Gener
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/llamacloud-rag-mcp.git
+git clone https://github.com/uiqkos/llamacloud-rag-mcp.git
 cd llamacloud-rag-mcp
 
 # Run the interactive installer
@@ -44,7 +44,7 @@ The installer will:
 
 ```bash
 # 1. Clone and setup
-git clone https://github.com/username/llamacloud-rag-mcp.git
+git clone https://github.com/uiqkos/llamacloud-rag-mcp.git
 cd llamacloud-rag-mcp
 npm install
 npm run build
@@ -201,7 +201,7 @@ Extend the server by adding new tools in `src/index.ts`. Follow the existing pat
 ### Getting Help
 
 - 📖 Check the [MCP Documentation](https://modelcontextprotocol.io/)
-- 💬 Open an [issue](https://github.com/username/llamacloud-rag-mcp/issues) 
+- 💬 Open an [issue](https://github.com/uiqkos/llamacloud-rag-mcp/issues) 
 - 🔍 Review Cursor logs in developer console
 
 ## 🤝 Contributing
