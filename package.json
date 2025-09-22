@@ -1,0 +1,62 @@
+{
+  "name": "llamacloud-rag-mcp-server",
+  "version": "1.0.0",
+  "description": "Professional MCP server for LlamaCloud RAG with database document retrieval",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "llamacloud-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "echo 'Testing MCP server...' && npm run test:init && npm run test:tools",
+    "test:init": "echo '{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2024-11-05\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"test\", \"version\": \"1.0.0\"}}}' | node dist/index.js",
+    "test:tools": "echo '{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"tools/list\"}' | node dist/index.js",
+    "install:cursor": "./install.sh",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "rag",
+    "retrieval-augmented-generation", 
+    "llamacloud",
+    "llamaindex",
+    "database",
+    "documents",
+    "ai",
+    "cursor",
+    "ide"
+  ],
+  "author": "Kirill",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/llamacloud-rag-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/llamacloud-rag-mcp/issues"
+  },
+  "homepage": "https://github.com/username/llamacloud-rag-mcp#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE",
+    "cursor-mcp-config.example.json",
+    "config.example"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "llamacloud-rag": {
+      "command": "node",
+      "args": ["/absolute/path/to/llamacloud-mcp-new/dist/index.js"],
+      "env": {
+        "LLAMA_CLOUD_API_KEY": "your-llamacloud-api-key-here"
+      }
+    }
+  }
+}
