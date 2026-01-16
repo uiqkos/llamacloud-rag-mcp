@@ -4,6 +4,7 @@
 {
   "llamaCloud": {
     "apiKey": "your-llamacloud-api-key-here",
+    "pipelineId": "your-pipeline-id",
     "pipelineUrl": "https://api.cloud.llamaindex.ai/api/v1/pipelines/your-pipeline-id/retrieve",
     "indexName": "your-index-name",
     "projectName": "your-project-name", 

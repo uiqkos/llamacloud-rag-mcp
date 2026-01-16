@@ -41,6 +41,22 @@ if [ -z "$API_KEY" ]; then
     exit 1
 fi
 
+# Get organization ID from user
+read -p "🏢 Enter your LlamaCloud Organization ID: " ORG_ID
+
+if [ -z "$ORG_ID" ]; then
+    echo "❌ Organization ID is required!"
+    exit 1
+fi
+
+# Get pipeline ID from user
+read -p "🧩 Enter your LlamaCloud Pipeline ID: " PIPELINE_ID
+
+if [ -z "$PIPELINE_ID" ]; then
+    echo "❌ Pipeline ID is required!"
+    exit 1
+fi
+
 # Get Cursor configuration path
 echo ""
 echo "📂 Cursor MCP Configuration"
@@ -74,7 +90,9 @@ cat > "$CONFIG_PATH" << EOF
       "command": "node",
       "args": ["$(pwd)/dist/index.js"],
       "env": {
-        "LLAMA_CLOUD_API_KEY": "$API_KEY"
+        "LLAMA_CLOUD_API_KEY": "$API_KEY",
+        "LLAMA_CLOUD_ORGANIZATION_ID": "$ORG_ID",
+        "LLAMA_CLOUD_PIPELINE_ID": "$PIPELINE_ID"
       }
     }
   }
@@ -85,7 +103,7 @@ echo "✅ Configuration saved to: $CONFIG_PATH"
 
 # Test the server
 echo "🧪 Testing the server..."
-if LLAMA_CLOUD_API_KEY="$API_KEY" timeout 10 node dist/index.js <<< '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0.0"}}}' > /dev/null 2>&1; then
+if LLAMA_CLOUD_API_KEY="$API_KEY" LLAMA_CLOUD_ORGANIZATION_ID="$ORG_ID" LLAMA_CLOUD_PIPELINE_ID="$PIPELINE_ID" timeout 10 node dist/index.js <<< '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0.0"}}}' > /dev/null 2>&1; then
     echo "✅ Server test successful!"
 else
     echo "⚠️  Server test failed, but installation completed. Please check your API key."

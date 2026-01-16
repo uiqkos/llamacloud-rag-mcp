@@ -4,7 +4,9 @@
       "command": "node",
       "args": ["/absolute/path/to/llamacloud-mcp-new/dist/index.js"],
       "env": {
-        "LLAMA_CLOUD_API_KEY": "your-llamacloud-api-key-here"
+        "LLAMA_CLOUD_API_KEY": "your-llamacloud-api-key-here",
+        "LLAMA_CLOUD_ORGANIZATION_ID": "your-organization-id",
+        "LLAMA_CLOUD_PIPELINE_ID": "your-pipeline-id"
       }
     }
   }

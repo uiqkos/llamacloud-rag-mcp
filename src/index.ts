@@ -13,6 +13,7 @@ import fetch from "node-fetch";
 interface LlamaCloudConfig {
   apiKey: string;
   pipelineUrl: string;
+  pipelineId?: string;
   indexName: string;
   projectName: string;
   organizationId: string;
@@ -36,16 +37,29 @@ class LlamaCloudMCPServer {
 
   constructor() {
     // Configuration from environment
+    const pipelineId = (process.env.LLAMA_CLOUD_PIPELINE_ID || "").trim();
+    const pipelineUrl = (process.env.LLAMA_CLOUD_PIPELINE_URL || "").trim();
+    const resolvedPipelineUrl =
+      pipelineUrl ||
+      (pipelineId
+        ? `https://api.cloud.llamaindex.ai/api/v1/pipelines/${pipelineId}/retrieve`
+        : "");
+
     this.config = {
-      apiKey: process.env.LLAMA_CLOUD_API_KEY || "",
-      pipelineUrl: "https://api.cloud.llamaindex.ai/api/v1/pipelines/d8a5487a-da51-4765-8eb8-54cb2bca1417/retrieve",
+      apiKey: (process.env.LLAMA_CLOUD_API_KEY || "").trim(),
+      pipelineUrl: resolvedPipelineUrl,
+      pipelineId: pipelineId || undefined,
       indexName: "dbms",
       projectName: "Default",
-      organizationId: "076f3147-d71d-4ed7-8dd3-b1f2b1b478ed"
+      organizationId: (process.env.LLAMA_CLOUD_ORGANIZATION_ID || "").trim(),
     };
 
-    if (!this.config.apiKey) {
-      console.error("❌ LLAMA_CLOUD_API_KEY environment variable is required");
+    if (!this.config.apiKey || !this.config.organizationId || !this.config.pipelineUrl) {
+      console.error("❌ Missing required environment variables for LlamaCloud MCP server");
+      console.error("Required:");
+      console.error("- LLAMA_CLOUD_API_KEY");
+      console.error("- LLAMA_CLOUD_ORGANIZATION_ID");
+      console.error("- LLAMA_CLOUD_PIPELINE_ID (or LLAMA_CLOUD_PIPELINE_URL)");
       process.exit(1);
     }
 

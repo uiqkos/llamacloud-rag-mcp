@@ -36,7 +36,7 @@ The installer will:
 - ✅ Check Node.js version
 - 📦 Install dependencies
 - 🔧 Build the project
-- 🔑 Setup your API key
+- 🔑 Setup your API key + Organization ID + Pipeline ID
 - 📂 Configure Cursor MCP
 - 🧪 Test the connection
 
@@ -60,7 +60,9 @@ npm run build
       "command": "node",
       "args": ["/absolute/path/to/llamacloud-rag-mcp/dist/index.js"],
       "env": {
-        "LLAMA_CLOUD_API_KEY": "your-api-key-here"
+        "LLAMA_CLOUD_API_KEY": "your-api-key-here",
+        "LLAMA_CLOUD_ORGANIZATION_ID": "your-organization-id",
+        "LLAMA_CLOUD_PIPELINE_ID": "your-pipeline-id"
       }
     }
   }
@@ -73,6 +75,8 @@ npm run build
 
 - **Node.js 18.0+** and npm
 - **LlamaCloud API Key** (get it [here](https://cloud.llamaindex.ai/))
+- **LlamaCloud Organization ID**
+- **LlamaCloud Pipeline ID** (or a full Pipeline URL)
 - **Cursor IDE** with MCP support
 
 ## 📋 Available Tools
@@ -130,7 +134,7 @@ npm run test:init  # Test initialization
 npm run test:tools # Test tool listing
 
 # Test with your API key
-LLAMA_CLOUD_API_KEY="your-key" npm run test
+LLAMA_CLOUD_API_KEY="your-key" LLAMA_CLOUD_ORGANIZATION_ID="your-org-id" LLAMA_CLOUD_PIPELINE_ID="your-pipeline-id" npm run test
 ```
 
 ## 📁 Project Structure
@@ -163,16 +167,13 @@ llamacloud-rag-mcp/
 ### Using Your Own LlamaCloud Index
 
 1. **Create your index** in LlamaCloud
-2. **Update the configuration** in `src/index.ts`:
+2. **Set the required environment variables** in your Cursor MCP config:
 
 ```typescript
-this.config = {
-  apiKey: process.env.LLAMA_CLOUD_API_KEY || "",
-  pipelineUrl: "https://api.cloud.llamaindex.ai/api/v1/pipelines/YOUR-PIPELINE-ID/retrieve",
-  indexName: "your-index-name",
-  projectName: "your-project-name",
-  organizationId: "your-organization-id"
-};
+LLAMA_CLOUD_API_KEY=...
+LLAMA_CLOUD_ORGANIZATION_ID=...
+LLAMA_CLOUD_PIPELINE_ID=...
+# or set LLAMA_CLOUD_PIPELINE_URL=... instead of PIPELINE_ID
 ```
 
 3. **Rebuild**: `npm run build`
@@ -185,7 +186,7 @@ Extend the server by adding new tools in `src/index.ts`. Follow the existing pat
 
 ### Tools not showing in Cursor?
 
-1. ✅ **Check API key**: Ensure `LLAMA_CLOUD_API_KEY` is set correctly
+1. ✅ **Check env vars**: Ensure `LLAMA_CLOUD_API_KEY`, `LLAMA_CLOUD_ORGANIZATION_ID`, and `LLAMA_CLOUD_PIPELINE_ID` (or `LLAMA_CLOUD_PIPELINE_URL`) are set correctly
 2. 🔄 **Restart Cursor**: Fully quit and restart Cursor IDE  
 3. 📍 **Check paths**: Ensure absolute paths in MCP configuration
 4. 🔍 **Check logs**: Look at Cursor developer console for errors
@@ -194,7 +195,7 @@ Extend the server by adding new tools in `src/index.ts`. Follow the existing pat
 ### Common Issues
 
 **"Module not found"**: Run `npm run build` first
-**"API key required"**: Set `LLAMA_CLOUD_API_KEY` environment variable  
+**"Missing required environment variables"**: Set `LLAMA_CLOUD_API_KEY`, `LLAMA_CLOUD_ORGANIZATION_ID`, and `LLAMA_CLOUD_PIPELINE_ID` (or `LLAMA_CLOUD_PIPELINE_URL`)  
 **"Connection failed"**: Check your LlamaCloud API key and internet connection
 **"Tools not listed"**: Verify Cursor MCP configuration syntax
 
